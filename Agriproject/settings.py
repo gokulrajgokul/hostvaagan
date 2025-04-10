@@ -17,8 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +29,7 @@ SECRET_KEY = 'django-insecure-tmpy)gfsm43jjsaz#t=quuc9w!03wm%hmt(o#vae_)*_1s_ut7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS =  ['localhost', '127.0.0.1', 'hostvaagan.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,10 +89,10 @@ WSGI_APPLICATION = 'Agriproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sql5772338',
-        'USER': 'sql5772338',
-        'PASSWORD': 'fCaXTwWJJ1',
-        'HOST': 'sql5.freesqldatabase.com',
+        'NAME': 'Agrivaahan',
+        'USER': 'root',
+        'PASSWORD': 'gokulhema@26',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
