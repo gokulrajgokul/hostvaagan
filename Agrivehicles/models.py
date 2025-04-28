@@ -1,6 +1,7 @@
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Vehicle(models.Model):
     
@@ -11,6 +12,8 @@ class Vehicle(models.Model):
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to="Vehicle/images",default="")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner_location=models.CharField(max_length=100 ,default="")
+    is_available = models.BooleanField(default=True)
     rating = models.FloatField(default=0)         # Average rating
     num_ratings = models.IntegerField(default=0)  # Number of ratings
 
@@ -66,7 +69,7 @@ class Order(models.Model):
 class Contact(models.Model):
     message = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150,default="")
-    email = models.CharField(max_length=150,default="")
+    email = models.EmailField(max_length=150,default="")   
     phone_number = models.CharField(max_length=15,default="")
     message = models.TextField(max_length=500,default="")
 
@@ -101,7 +104,13 @@ class UserProfile(models.Model):
 
 class Booking(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    farmer = models.ForeignKey(User, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(User, on_delete=models.CASCADE)  # person who booked
     booking_date = models.DateField()
     duration = models.IntegerField()
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    total_amount = models.FloatField()
+    visible_to_farmer = models.BooleanField(default=True)
+    visible_to_owner = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now) 
+
+    def __str__(self):
+        return f"{self.vehicle.Vehicle_name} booked by {self.farmer.username}"
